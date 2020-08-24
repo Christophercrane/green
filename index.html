@@ -70,6 +70,30 @@
 
 
 <script>
+      /**
+       * Following the v2 message API Response
+       * at https://cloud.ibm.com/apidocs/assistant/assistant-v2#send-user-input-to-assistant,
+       * we add some items to context.
+       */
+      function preSendhandler(event) {
+
+        // Your skill reference name might be different than "main skill".
+        event.data.context.skills['main skill'].user_defined.sourcepage = "dot";
+
+        // You can OPTIONALLY return a promise and we will wait to continue processing until the promise is resolved. If
+        // you return nothing we will immediately continue processing the event. If you fail the Promise we will cancel
+        // sending the message.
+
+        /*
+        return new Promise(function(resolve) {
+          myAsyncThing.then(function(moreData) {
+            // Do some other manipulation of event.data...
+            resolve();
+          });
+        });
+        */
+
+      }
   window.watsonAssistantChatOptions = {
     integrationID: "15ac47ce-d112-44ab-baaa-28a262604d8a",
     region: "us-south",
@@ -78,6 +102,9 @@
     // Config option to hide the default launcher.
     showLauncher: false,
     onLoad: function(instance) {
+      // Subscribe to the "pre:send" event.
+          instance.on({ type: "pre:send", handler: preSendhandler });
+
       // Select the button element from the page.
       const button = document.querySelector('.chatLauncher');
 
