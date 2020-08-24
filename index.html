@@ -77,8 +77,8 @@
        */
       function preSendhandler(event) {
 
-        // Your skill reference name might be different than "green skill".
-        event.data.context.skills['green skill'].user_defined.sourcepage = "green";
+        // Your skill reference name might be different than "main skill".
+        event.data.context.skills['main skill'].user_defined.sourcepage = "green";
 
         // You can OPTIONALLY return a promise and we will wait to continue processing until the promise is resolved. If
         // you return nothing we will immediately continue processing the event. If you fail the Promise we will cancel
